@@ -7,6 +7,7 @@ A Streamlit application for exploring the supplied steady-state heat-sink calcul
 - Calculate total thermal resistance and junction temperature for an operating point.
 - Compare the engineering calculation with either surrogate model.
 - Review holdout MAE, RMSE, and R² results.
+- Compare the Random Forest and Extra Trees holdout scores (MAE, RMSE, and R²) in the Model Validation tab; the results are also saved in `surrogate_metrics.csv`.
 - Inspect Pearson/Spearman sensitivity and download the generated sweep CSV and summary report.
 
 ## Run Locally
