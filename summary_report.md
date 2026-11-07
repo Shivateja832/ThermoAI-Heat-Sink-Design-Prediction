@@ -7,10 +7,8 @@
 - `heat_sink_sweep.csv`: 6,000 calculated cases.
 - `surrogate_metrics.csv`: holdout accuracy for both models and targets.
 - `sensitivity_analysis.csv`: Pearson and Spearman input/output correlations.
-- `assessment_responses.md`: AI-platform use cases plus sections requiring the candidate's own answers.
 - `assessment_responses.md`: written assessment responses for Tasks 2–4.
 
-Run the complete pipeline from this folder with `python Heat_Sink_calculation.py`. The script uses NumPy, pandas, and scikit-learn.
 Install dependencies with `python -m pip install -r requirements.txt`, generate the assessment outputs with `python Heat_Sink_calculation.py`, then launch the local app with `python -m streamlit run app.py`.
 
 ## Assumptions

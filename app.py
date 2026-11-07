@@ -98,10 +98,10 @@ def train_models() -> dict[str, object]:
     )
     models = {
         "Random Forest": RandomForestRegressor(
-            n_estimators=300, min_samples_leaf=1, random_state=42, n_jobs=-1
+              n_estimators=300, min_samples_leaf=1, random_state=42, n_jobs=1
         ),
         "Extra Trees": ExtraTreesRegressor(
-            n_estimators=300, min_samples_leaf=1, random_state=42, n_jobs=-1
+              n_estimators=300, min_samples_leaf=1, random_state=42, n_jobs=1
         ),
     }
     for model in models.values():

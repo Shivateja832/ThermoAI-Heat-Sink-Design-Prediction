@@ -122,10 +122,10 @@ def evaluate_surrogates(dataset: pd.DataFrame) -> pd.DataFrame:
     )
     models = {
         "RandomForest": RandomForestRegressor(
-            n_estimators=300, min_samples_leaf=1, random_state=42, n_jobs=-1
+            n_estimators=300, min_samples_leaf=1, random_state=42, n_jobs=1
         ),
         "ExtraTrees": ExtraTreesRegressor(
-            n_estimators=300, min_samples_leaf=1, random_state=42, n_jobs=-1
+            n_estimators=300, min_samples_leaf=1, random_state=42, n_jobs=1
         ),
     }
     records = []
