@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Any
 
 import pandas as pd
 import streamlit as st
@@ -15,6 +16,15 @@ from Heat_Sink_calculation import (
 )
 
 APP_DIR = Path(__file__).resolve().parent
+def display_dataframe(data: pd.DataFrame, **kwargs: Any) -> None:
+    streamlit_version = tuple(int(part) for part in st.__version__.split(".")[:2])
+    if streamlit_version >= (1, 49):
+        kwargs["width"] = "stretch"
+    else:
+        kwargs["use_container_width"] = True
+    st.dataframe(data, **kwargs)
+
+
 DATASET_PATH = APP_DIR / "heat_sink_sweep.csv"
 METRICS_PATH = APP_DIR / "surrogate_metrics.csv"
 SENSITIVITY_PATH = APP_DIR / "sensitivity_analysis.csv"
@@ -143,7 +153,7 @@ with design_tab:
             f"{resistance_difference:+.5f} °C/W and {temperature_difference:+.3f} °C. "
             "Use the engineering model as the reference; the surrogate is valid only within the swept ranges."
         )
-        st.dataframe(
+        display_dataframe(
             pd.DataFrame(
                 {
                     "Quantity": ["Air Reynolds number", "Nusselt number", "Convection coefficient"],
@@ -155,22 +165,21 @@ with design_tab:
                 }
             ),
             hide_index=True,
-            use_container_width=True,
         )
 
 with validation_tab:
     st.subheader("Holdout accuracy")
     st.caption("Reproducible 80/20 random split, seed 42. MAE and RMSE are in target units.")
-    st.dataframe(load_metrics(), hide_index=True, use_container_width=True)
+    display_dataframe(load_metrics(), hide_index=True)
 
 with data_tab:
     st.subheader("Parameter sensitivity")
     st.caption("Pearson and Spearman correlations over the generated sweep; correlation is not causal evidence.")
-    st.dataframe(load_sensitivity(), hide_index=True, use_container_width=True)
+    display_dataframe(load_sensitivity(), hide_index=True)
     st.subheader("Sweep dataset")
     dataset = load_dataset()
     st.caption(f"{len(dataset):,} deterministic cases from the supplied engineering calculation.")
-    st.dataframe(dataset.head(100), hide_index=True, use_container_width=True)
+    display_dataframe(dataset.head(100), hide_index=True)
     st.download_button(
         "Download full sweep CSV",
         data=dataset.to_csv(index=False).encode("utf-8"),
